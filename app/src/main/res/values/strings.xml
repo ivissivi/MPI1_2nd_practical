@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SecondActivity</string>
+    <string name="go_to_2nd">Go to 2-nd</string>
+    <string name="dialog">Dialog</string>
+    <string name="back">Back</string>
+    <string name="_1stActivity">1-st Activity</string>
+    <string name="_2ndActivity">2-nd Activity</string>
+</resources>

@@ -47,42 +47,39 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                 switchActivities();
                 break;
             case R.id.btnDialog:
-                int id = view.getId();
                 builder.setTitle("Select group members:")
                         .setMultiChoiceItems(group_members, clicked_members, new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                clicked_members[which] = isChecked;
-                                if(isChecked == true) {
-                                    String getCBName = group_members[which];
-                                    toast.setText("You clicked: " + getCBName);
-                                    toast.show();
+                                    clicked_members[which] = isChecked;
+                                    if (!isChecked) {
+                                        String getCBName = group_members[which];
+                                        toast.setText(getCBName + " checked");
+                                        toast.show();
+                                    }
+                                        else if (isChecked) {    String getCBName = group_members[which];
+                                        toast.setText(getCBName + " unchecked");
+                                        toast.show();
                                 }
-                                if (isChecked == false) {
-                                    String getCBName = group_members[which];
-                                    toast.setText("You unclicked: " + getCBName);
-                                    toast.show();
-                                }
-
-                }
-            })
-                        .setCancelable(true)
+                 }
+            });
+                        builder.setCancelable(true)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i) {
                                 toast.setText("You clicked OK");
                                 toast.show();
                             }
-                        })
-                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        });
+                        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 toast.setText("You closed dialog");
                                 toast.show();
                                 dialog.cancel();
                             }
-                        })
-                        .show();
+                        });
+                        builder.show();
                 break;
         }
     }

@@ -15,6 +15,12 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
 
     AlertDialog.Builder builder;
 
+    private static final String[] group_members = new String[] {
+            "Ivars Sloka", "Alvils Glušonoks", "Kārlis Puriņš"
+    };
+
+    private boolean[] clicked_members = new boolean[group_members.length];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +47,25 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                 switchActivities();
                 break;
             case R.id.btnDialog:
-                builder.setTitle("Alert!!!")
-                        .setMessage("Yes?")
+                int id = view.getId();
+                builder.setTitle("Select group members:")
+                        .setMultiChoiceItems(group_members, clicked_members, new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                clicked_members[which] = isChecked;
+                                if(isChecked == true) {
+                                    String getCBName = group_members[which];
+                                    toast.setText("You clicked: " + getCBName);
+                                    toast.show();
+                                }
+                                if (isChecked == false) {
+                                    String getCBName = group_members[which];
+                                    toast.setText("You unclicked: " + getCBName);
+                                    toast.show();
+                                }
+
+                }
+            })
                         .setCancelable(true)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
@@ -54,6 +77,8 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                         .setNegativeButton("Close", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                toast.setText("You closed dialog");
+                                toast.show();
                                 dialog.cancel();
                             }
                         })
